@@ -37,12 +37,12 @@ int main(){
     gets(choice);
     choicee=atoi(choice);
     switch(choicee){
-        case(1): CreateContact(ContactList); break;
+        case(1): ContactList=CreateContact(ContactList); break;
         case(2): printf("Haven't support yet\n"); break;
         case(3): printf("Haven't support yet\n"); break;
         case(4): printf("Haven't support yet"); break;
         case(5): Print(ContactList); break;
-        case(6): system("cls"); break;
+        case(6): system("cls"); help(); break;
         case(7): break;
         default: printf("Syntax error\n");
     }

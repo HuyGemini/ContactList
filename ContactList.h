@@ -14,6 +14,7 @@ struct Node {
     Node *Next;
 };
 
+void help();
 Node *Insert_toHead(Node *First, information X);
 Node *Insert_Middle(Node *Pred, information X);
 Node *Insert_toLast(Node *First, information X );
@@ -24,5 +25,5 @@ int isEmpty(Node *First);
 Node *MakeNull(Node *First);
 void Print(Node *First);
 
-void CreateContact(Node *First);
+Node *CreateContact(Node *First);
 

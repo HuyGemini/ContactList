@@ -3,6 +3,33 @@
 #include <stdio.h>
 #include "ContactList.h"
 
+void help(){
+    printf("===========================================================");
+    printf("\n\n\t\tWELCOME TO CONTACT LIST");
+    printf("\n\n===========================================================");
+    printf("\n\n\tContact list support the following command: ");
+    printf("\n\t1. Create a new contact ");
+    printf("\n\t\t1.1. Enter name");
+    printf("\n\t\t1.2. Enter address");
+    printf("\n\t\t1.3. Enter email");
+    printf("\n\t\t1.4. Enter phone number");
+    printf("\n\t2. Delete contacts");
+    printf("\n\t\t2.1. Delete a contact");
+    printf("\n\t\t2.1. Delete all contacts");
+    printf("\n\t3. Search a contact");
+    printf("\n\t\t3.1. Search a contact by name");
+    printf("\n\t\t3.2. Search a contact by address");
+    printf("\n\t\t3.3. Search a contact by phone number");
+    printf("\n\t4. Edit a contact");
+    printf("\n\t\t4.1. Edit name of a contact");
+    printf("\n\t\t4.2. Edit address of a contact");
+    printf("\n\t\t4.3. Edit phone number of a contact");
+    printf("\n\t5. Print contact list");
+    printf("\n\t6. Clear screen");
+    printf("\n\t7. Exit");
+    printf("\n\n===========================================================");
+    printf("\n");
+}
 
 Node *Insert_toHead(Node *First, information X){
     Node *TempNode;
@@ -75,16 +102,25 @@ Node *MakeNull(Node *First){
 
 void Print(Node *First){
     Node *TempNode;
+    int count=0;
     TempNode=First;
-    while(TempNode->Next !=NULL){
-        printf("%s\n",TempNode->data.name);
+    system("cls");
+    printf("\n\n+===+==============================+==============================+==============================+===============+");
+    printf("\n\n                                       WELCOME TO CONTACT LIST");
+    printf("\n\n+===+==============================+==============================+==============================+===============+");
+    printf("\n|STT| Name                         | address                      | email                        |         phone |");
+    printf("\n+---+------------------------------+------------------------------+------------------------------+---------------+");
+    while(TempNode){
+        ++count;
+        printf("\n|%3d|%30s|%30s|%30s|%15s|",count,TempNode->data.name,TempNode->data.add,TempNode->data.email,TempNode->data.phone);
         TempNode=TempNode->Next;
     }
+    printf("\n+===+==============================+==============================+==============================+===============+");
     printf("\n");
 }
 
 
-void CreateContact(Node *First){
+Node *CreateContact(Node *First){
     information X;
     printf("Enter name: ");
     fflush(stdin);
@@ -99,7 +135,7 @@ void CreateContact(Node *First){
     fflush(stdin);
     gets(X.phone);
     First=Insert_toHead(First,X);
-
+    return First;
 }
 
 
