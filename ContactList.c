@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <strings.h>
+#include <stdio.h>
 #include "ContactList.h"
 
 
@@ -74,11 +76,32 @@ Node *MakeNull(Node *First){
 void Print(Node *First){
     Node *TempNode;
     TempNode=First;
-    while(TempNode){
-        printf("%d",TempNode->data);
+    while(TempNode->Next !=NULL){
+        printf("%s\n",TempNode->data.name);
+        TempNode=TempNode->Next;
     }
     printf("\n");
 }
+
+
+void CreateContact(Node *First){
+    information X;
+    printf("Enter name: ");
+    fflush(stdin);
+    gets(X.name);
+    printf("Enter address: ");
+    fflush(stdin);
+    gets(X.add);
+    printf("Enter email: ");
+    fflush(stdin);
+    gets(X.email);
+    printf("Enter phone number: ");
+    fflush(stdin);
+    gets(X.phone);
+    First=Insert_toHead(First,X);
+
+}
+
 
 
 

@@ -1,18 +1,18 @@
 #define MAXLEN 100
 
 typedef struct {
-    char *name; //ten
-    char *add; //dia chi
-    char *email; //email
+    char name[MAXLEN]; //ten
+    char add[MAXLEN]; //dia chi
+    char email[MAXLEN]; //email
     char phone[MAXLEN];
 }information;
 
-typedef struct Node {
-    information data;
-    struct Node *Next;
-}Node;
+typedef struct Node Node;
 
-typedef struct Node *list;
+struct Node {
+    information data;
+    Node *Next;
+};
 
 Node *Insert_toHead(Node *First, information X);
 Node *Insert_Middle(Node *Pred, information X);
@@ -24,4 +24,5 @@ int isEmpty(Node *First);
 Node *MakeNull(Node *First);
 void Print(Node *First);
 
+void CreateContact(Node *First);
 
