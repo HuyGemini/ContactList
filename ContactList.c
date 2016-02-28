@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <strings.h>
 #include <stdio.h>
+#include <conio.h>
 #include "ContactList.h"
 
 void help(){
@@ -63,12 +64,6 @@ Node *Insert_toLast(Node *First, information X ){
     }
 } */
 
-void Delete(Node *Pred){
-    Node *TempNode;
-    TempNode=Pred->Next;
-    Pred->Next=Pred->Next->Next;
-    free(TempNode);
-}
 
 Node *Delete_Head(Node *First){
     Node *TempNode1;
@@ -77,6 +72,14 @@ Node *Delete_Head(Node *First){
     free(TempNode1);
     return First;
 }
+
+void Delete_Middle(Node *Pred){
+    Node *TempNode;
+    TempNode=Pred->Next;
+    Pred->Next=Pred->Next->Next;
+    free(TempNode);
+}
+
 
 void Delete_Last(Node *First){
     Node *TempNode1,*TempNode2;
@@ -97,6 +100,8 @@ int isEmpty(Node *First){
 Node *MakeNull(Node *First){
     while(!isEmpty(First))
         First=Delete_Head(First);
+    printf("Delete Completely\n");
+    getch();
     return First;
 }
 
@@ -117,10 +122,14 @@ void Print(Node *First){
     }
     printf("\n+===+==============================+==============================+==============================+===============+");
     printf("\n");
+    getch();
+
 }
 
 
 Node *CreateContact(Node *First){
+    Node *TempNode;
+    TempNode = (Node*)malloc(sizeof(Node));
     information X;
     printf("Enter name: ");
     fflush(stdin);
@@ -134,10 +143,77 @@ Node *CreateContact(Node *First){
     printf("Enter phone number: ");
     fflush(stdin);
     gets(X.phone);
-    First=Insert_toHead(First,X);
+    if(!First) {First = Insert_toHead(First,X); TempNode = First; }
+    else TempNode = Insert_Middle(TempNode,X);
+    printf("Enter complete.\n");
+    getch();
     return First;
 }
 
 
+int Search(Node *First,int k){
+    information X;
+    int location=0;
+    Node *TempNode;
+    TempNode=First;
+    switch(k){
+        case(1): printf("Enter name: "); fflush(stdin); gets(X.name); break;
+        case(2): printf("Enter address: "); fflush(stdin); gets(X.add); break;
+        case(3): printf("Enter phone: "); fflush(stdin); gets(X.phone); break;
+    }
+    while(TempNode){
+        location++;
+        if(strcmp(TempNode->data.name,X.name)==0) return location;
+        if (strcmp(TempNode->data.add,X.add)==0) return location;
+        if (strcmp(TempNode->data.phone,X.phone)==0) return location;
+        TempNode=TempNode->Next;
+    }
+    return 0;
+}
 
+void Print_forSearch(Node *First, int location){
+    int i;
+    if (location == 0 ) {
+            printf("Not found");
+            getch();
+            return;
+    }
+    Node *TempNode;
+    TempNode=First;
+    system("cls");
+    printf("\n\n+===+==============================+==============================+==============================+===============+");
+    printf("\n\n                                       WELCOME TO CONTACT LIST");
+    printf("\n\n+===+==============================+==============================+==============================+===============+");
+    printf("\n|STT| Name                         | address                      | email                        |         phone |");
+    printf("\n+---+------------------------------+------------------------------+------------------------------+---------------+");
+    for(i=2;i<=location;++i)
+        TempNode=TempNode->Next;
+    printf("\n|%3d|%30s|%30s|%30s|%15s|",location,TempNode->data.name,TempNode->data.add,TempNode->data.email,TempNode->data.phone);
 
+    printf("\n+===+==============================+==============================+==============================+===============+");
+    printf("\n");
+    getch();
+}
+
+void Delete(Node *First, int location){
+    int i;
+    if (location == 0 ) {
+            printf("Not found");
+            getch();
+            return;
+    }
+    Node *TempNode;
+    TempNode=First;
+    if(location==1) {
+        Delete_Head(TempNode);
+        printf("Delete complete.\n");
+        getch();
+        return;
+    }
+    for(i=2;i<location;++i)
+        TempNode=TempNode->Next;
+    Delete_Middle(TempNode);
+    printf("Delete complete.\n");
+    getch();
+    return;
+}
